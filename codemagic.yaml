@@ -7,9 +7,11 @@ workflows:
   # No signing keystore or developer account required.
   # Download the APK from the build artifacts and sideload it.
   # ---------------------------------------------------------------------------
+  # NOTE: Codemagic's free 500 min/month are macOS-M2 only — Linux/Windows
+  # builds have no free minutes. So we build the Android APK on a Mac instance.
   android-debug:
     name: Android Debug (free test build)
-    instance_type: linux
+    instance_type: mac_mini_m2
     max_build_duration: 60
     environment:
       node: 20.11.0
