@@ -1,0 +1,63 @@
+{
+  "common": {
+    "appName": "Little Steps",
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "add": "添加",
+    "edit": "编辑",
+    "today": "今天",
+    "back": "返回",
+    "seeAll": "查看全部"
+  },
+  "tabs": {
+    "home": "首页",
+    "trackers": "记录",
+    "learn": "学习",
+    "community": "社区",
+    "profile": "我的"
+  },
+  "onboarding": {
+    "welcomeTitle": "欢迎使用 Little Steps",
+    "welcomeSubtitle": "记录宝宝的一天，学习育儿知识，并与其他父母交流。",
+    "getStarted": "开始",
+    "babyName": "宝宝姓名",
+    "birthDate": "出生日期",
+    "createProfile": "创建档案"
+  },
+  "home": {
+    "greeting": "你好",
+    "todaySummary": "今日概览",
+    "quickActions": "快捷操作"
+  },
+  "trackers": {
+    "sleep": "睡眠",
+    "feeding": "喂养",
+    "diaper": "尿布",
+    "weight": "体重",
+    "logSleep": "记录睡眠",
+    "logFeeding": "记录喂养",
+    "logDiaper": "记录尿布",
+    "logWeight": "记录体重",
+    "noEntries": "暂无记录"
+  },
+  "learn": {
+    "encyclopedia": "健康百科",
+    "foodPlan": "30天辅食计划",
+    "day": "第"
+  },
+  "community": {
+    "title": "妈妈社区",
+    "newPost": "发布",
+    "writeSomething": "和社区分享一些内容…",
+    "post": "发布",
+    "likes": "赞",
+    "replies": "回复"
+  },
+  "settings": {
+    "title": "设置",
+    "language": "语言",
+    "profile": "宝宝档案",
+    "reminders": "提醒"
+  }
+}

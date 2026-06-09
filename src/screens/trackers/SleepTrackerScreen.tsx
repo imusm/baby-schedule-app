@@ -1,0 +1,72 @@
+import React from 'react';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {useTranslation} from 'react-i18next';
+
+import {Screen, Card, PrimaryButton} from '../../components';
+import {colors, spacing, typography} from '../../theme';
+import {useAppStore} from '../../store/useAppStore';
+import {formatTime, timeAgo} from '../../utils/date';
+
+export const SleepTrackerScreen: React.FC = () => {
+  const {t} = useTranslation();
+  const sleeps = useAppStore((s) => s.sleeps);
+  const baby = useAppStore((s) => s.baby);
+  const addSleep = useAppStore((s) => s.addSleep);
+  const removeEntry = useAppStore((s) => s.removeEntry);
+
+  const ongoing = sleeps.find((s) => !s.endTime);
+
+  const toggle = () => {
+    if (ongoing) {
+      // end the ongoing nap by replacing it
+      removeEntry('sleep', ongoing.id);
+      addSleep({
+        babyId: baby?.id ?? 'unknown',
+        startTime: ongoing.startTime,
+        endTime: new Date().toISOString(),
+      });
+    } else {
+      addSleep({
+        babyId: baby?.id ?? 'unknown',
+        startTime: new Date().toISOString(),
+      });
+    }
+  };
+
+  return (
+    <Screen padded={false}>
+      <View style={styles.header}>
+        <PrimaryButton
+          title={ongoing ? 'End sleep' : t('trackers.logSleep')}
+          onPress={toggle}
+          variant={ongoing ? 'secondary' : 'primary'}
+        />
+      </View>
+      <FlatList
+        contentContainerStyle={styles.list}
+        data={sleeps}
+        keyExtractor={(item) => item.id}
+        ListEmptyComponent={
+          <Text style={[typography.bodyMuted, styles.empty]}>
+            {t('trackers.noEntries')}
+          </Text>
+        }
+        renderItem={({item}) => (
+          <Card>
+            <Text style={typography.h3}>
+              {formatTime(item.startTime)}
+              {item.endTime ? ` – ${formatTime(item.endTime)}` : ' (ongoing)'}
+            </Text>
+            <Text style={typography.caption}>{timeAgo(item.startTime)}</Text>
+          </Card>
+        )}
+      />
+    </Screen>
+  );
+};
+
+const styles = StyleSheet.create({
+  header: {padding: spacing.lg},
+  list: {paddingHorizontal: spacing.lg, paddingBottom: spacing.xxxl},
+  empty: {textAlign: 'center', marginTop: spacing.xxl},
+});

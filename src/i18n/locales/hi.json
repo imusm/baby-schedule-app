@@ -1,0 +1,63 @@
+{
+  "common": {
+    "appName": "Little Steps",
+    "save": "सहेजें",
+    "cancel": "रद्द करें",
+    "delete": "हटाएं",
+    "add": "जोड़ें",
+    "edit": "संपादित करें",
+    "today": "आज",
+    "back": "वापस",
+    "seeAll": "सभी देखें"
+  },
+  "tabs": {
+    "home": "होम",
+    "trackers": "ट्रैकर",
+    "learn": "सीखें",
+    "community": "समुदाय",
+    "profile": "प्रोफ़ाइल"
+  },
+  "onboarding": {
+    "welcomeTitle": "Little Steps में आपका स्वागत है",
+    "welcomeSubtitle": "अपने बच्चे का दिन ट्रैक करें, सीखें और अन्य माता-पिता से जुड़ें।",
+    "getStarted": "शुरू करें",
+    "babyName": "बच्चे का नाम",
+    "birthDate": "जन्म तिथि",
+    "createProfile": "प्रोफ़ाइल बनाएं"
+  },
+  "home": {
+    "greeting": "नमस्ते",
+    "todaySummary": "आज का सारांश",
+    "quickActions": "त्वरित क्रियाएं"
+  },
+  "trackers": {
+    "sleep": "नींद",
+    "feeding": "आहार",
+    "diaper": "डायपर",
+    "weight": "वज़न",
+    "logSleep": "नींद दर्ज करें",
+    "logFeeding": "आहार दर्ज करें",
+    "logDiaper": "डायपर दर्ज करें",
+    "logWeight": "वज़न दर्ज करें",
+    "noEntries": "अभी कोई प्रविष्टि नहीं"
+  },
+  "learn": {
+    "encyclopedia": "स्वास्थ्य विश्वकोश",
+    "foodPlan": "30-दिन की योजना",
+    "day": "दिन"
+  },
+  "community": {
+    "title": "माँ समुदाय",
+    "newPost": "नई पोस्ट",
+    "writeSomething": "समुदाय के साथ कुछ साझा करें...",
+    "post": "पोस्ट करें",
+    "likes": "पसंद",
+    "replies": "जवाब"
+  },
+  "settings": {
+    "title": "सेटिंग्स",
+    "language": "भाषा",
+    "profile": "बच्चे की प्रोफ़ाइल",
+    "reminders": "अनुस्मारक"
+  }
+}

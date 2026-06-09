@@ -1,0 +1,63 @@
+{
+  "common": {
+    "appName": "Little Steps",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "delete": "Hapus",
+    "add": "Tambah",
+    "edit": "Ubah",
+    "today": "Hari ini",
+    "back": "Kembali",
+    "seeAll": "Lihat semua"
+  },
+  "tabs": {
+    "home": "Beranda",
+    "trackers": "Catatan",
+    "learn": "Belajar",
+    "community": "Komunitas",
+    "profile": "Profil"
+  },
+  "onboarding": {
+    "welcomeTitle": "Selamat datang di Little Steps",
+    "welcomeSubtitle": "Catat hari si kecil, belajar, dan terhubung dengan orang tua lain.",
+    "getStarted": "Mulai",
+    "babyName": "Nama bayi",
+    "birthDate": "Tanggal lahir",
+    "createProfile": "Buat profil"
+  },
+  "home": {
+    "greeting": "Hai",
+    "todaySummary": "Ringkasan hari ini",
+    "quickActions": "Aksi cepat"
+  },
+  "trackers": {
+    "sleep": "Tidur",
+    "feeding": "Menyusui",
+    "diaper": "Popok",
+    "weight": "Berat",
+    "logSleep": "Catat tidur",
+    "logFeeding": "Catat menyusui",
+    "logDiaper": "Catat popok",
+    "logWeight": "Catat berat",
+    "noEntries": "Belum ada catatan"
+  },
+  "learn": {
+    "encyclopedia": "Ensiklopedia Kesehatan",
+    "foodPlan": "Rencana 30 Hari",
+    "day": "Hari"
+  },
+  "community": {
+    "title": "Komunitas Ibu",
+    "newPost": "Postingan baru",
+    "writeSomething": "Bagikan sesuatu dengan komunitas...",
+    "post": "Kirim",
+    "likes": "suka",
+    "replies": "balasan"
+  },
+  "settings": {
+    "title": "Pengaturan",
+    "language": "Bahasa",
+    "profile": "Profil bayi",
+    "reminders": "Pengingat"
+  }
+}

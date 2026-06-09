@@ -1,0 +1,63 @@
+{
+  "common": {
+    "appName": "Little Steps",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "add": "Add",
+    "edit": "Edit",
+    "today": "Today",
+    "back": "Back",
+    "seeAll": "See all"
+  },
+  "tabs": {
+    "home": "Home",
+    "trackers": "Trackers",
+    "learn": "Learn",
+    "community": "Community",
+    "profile": "Profile"
+  },
+  "onboarding": {
+    "welcomeTitle": "Welcome to Little Steps",
+    "welcomeSubtitle": "Track your baby's day, learn, and connect with other parents.",
+    "getStarted": "Get started",
+    "babyName": "Baby's name",
+    "birthDate": "Date of birth",
+    "createProfile": "Create profile"
+  },
+  "home": {
+    "greeting": "Hi",
+    "todaySummary": "Today's summary",
+    "quickActions": "Quick actions"
+  },
+  "trackers": {
+    "sleep": "Sleep",
+    "feeding": "Feeding",
+    "diaper": "Diaper",
+    "weight": "Weight",
+    "logSleep": "Log sleep",
+    "logFeeding": "Log feeding",
+    "logDiaper": "Log diaper",
+    "logWeight": "Log weight",
+    "noEntries": "No entries yet"
+  },
+  "learn": {
+    "encyclopedia": "Health Encyclopedia",
+    "foodPlan": "30-Day Food Plan",
+    "day": "Day"
+  },
+  "community": {
+    "title": "Mom Community",
+    "newPost": "New post",
+    "writeSomething": "Share something with the community...",
+    "post": "Post",
+    "likes": "likes",
+    "replies": "replies"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "profile": "Baby profile",
+    "reminders": "Reminders"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "common": {
+    "appName": "Little Steps",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "add": "Ajouter",
+    "edit": "Modifier",
+    "today": "Aujourd'hui",
+    "back": "Retour",
+    "seeAll": "Voir tout"
+  },
+  "tabs": {
+    "home": "Accueil",
+    "trackers": "Suivi",
+    "learn": "Apprendre",
+    "community": "Communauté",
+    "profile": "Profil"
+  },
+  "onboarding": {
+    "welcomeTitle": "Bienvenue sur Little Steps",
+    "welcomeSubtitle": "Suivez la journée de votre bébé, apprenez et échangez avec d'autres parents.",
+    "getStarted": "Commencer",
+    "babyName": "Nom du bébé",
+    "birthDate": "Date de naissance",
+    "createProfile": "Créer le profil"
+  },
+  "home": {
+    "greeting": "Bonjour",
+    "todaySummary": "Résumé du jour",
+    "quickActions": "Actions rapides"
+  },
+  "trackers": {
+    "sleep": "Sommeil",
+    "feeding": "Repas",
+    "diaper": "Couche",
+    "weight": "Poids",
+    "logSleep": "Noter le sommeil",
+    "logFeeding": "Noter le repas",
+    "logDiaper": "Noter la couche",
+    "logWeight": "Noter le poids",
+    "noEntries": "Aucune entrée pour le moment"
+  },
+  "learn": {
+    "encyclopedia": "Encyclopédie santé",
+    "foodPlan": "Plan de 30 jours",
+    "day": "Jour"
+  },
+  "community": {
+    "title": "Communauté des mamans",
+    "newPost": "Nouveau message",
+    "writeSomething": "Partagez quelque chose avec la communauté...",
+    "post": "Publier",
+    "likes": "j'aime",
+    "replies": "réponses"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "language": "Langue",
+    "profile": "Profil du bébé",
+    "reminders": "Rappels"
+  }
+}

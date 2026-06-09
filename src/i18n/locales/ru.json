@@ -1,0 +1,63 @@
+{
+  "common": {
+    "appName": "Little Steps",
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "delete": "Удалить",
+    "add": "Добавить",
+    "edit": "Изменить",
+    "today": "Сегодня",
+    "back": "Назад",
+    "seeAll": "Показать все"
+  },
+  "tabs": {
+    "home": "Главная",
+    "trackers": "Записи",
+    "learn": "Обучение",
+    "community": "Сообщество",
+    "profile": "Профиль"
+  },
+  "onboarding": {
+    "welcomeTitle": "Добро пожаловать в Little Steps",
+    "welcomeSubtitle": "Отслеживайте день малыша, учитесь и общайтесь с другими родителями.",
+    "getStarted": "Начать",
+    "babyName": "Имя малыша",
+    "birthDate": "Дата рождения",
+    "createProfile": "Создать профиль"
+  },
+  "home": {
+    "greeting": "Привет",
+    "todaySummary": "Сводка за сегодня",
+    "quickActions": "Быстрые действия"
+  },
+  "trackers": {
+    "sleep": "Сон",
+    "feeding": "Кормление",
+    "diaper": "Подгузник",
+    "weight": "Вес",
+    "logSleep": "Записать сон",
+    "logFeeding": "Записать кормление",
+    "logDiaper": "Записать подгузник",
+    "logWeight": "Записать вес",
+    "noEntries": "Пока нет записей"
+  },
+  "learn": {
+    "encyclopedia": "Энциклопедия здоровья",
+    "foodPlan": "План на 30 дней",
+    "day": "День"
+  },
+  "community": {
+    "title": "Сообщество мам",
+    "newPost": "Новая запись",
+    "writeSomething": "Поделитесь чем-нибудь с сообществом...",
+    "post": "Опубликовать",
+    "likes": "нравится",
+    "replies": "ответы"
+  },
+  "settings": {
+    "title": "Настройки",
+    "language": "Язык",
+    "profile": "Профиль малыша",
+    "reminders": "Напоминания"
+  }
+}

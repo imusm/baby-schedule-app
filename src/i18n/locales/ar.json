@@ -1,0 +1,63 @@
+{
+  "common": {
+    "appName": "Little Steps",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "add": "إضافة",
+    "edit": "تعديل",
+    "today": "اليوم",
+    "back": "رجوع",
+    "seeAll": "عرض الكل"
+  },
+  "tabs": {
+    "home": "الرئيسية",
+    "trackers": "السجلات",
+    "learn": "تعلّم",
+    "community": "المجتمع",
+    "profile": "الملف"
+  },
+  "onboarding": {
+    "welcomeTitle": "مرحبًا بك في Little Steps",
+    "welcomeSubtitle": "تابعي يوم طفلك، وتعلّمي، وتواصلي مع آباء آخرين.",
+    "getStarted": "ابدئي",
+    "babyName": "اسم الطفل",
+    "birthDate": "تاريخ الميلاد",
+    "createProfile": "إنشاء الملف"
+  },
+  "home": {
+    "greeting": "مرحبًا",
+    "todaySummary": "ملخص اليوم",
+    "quickActions": "إجراءات سريعة"
+  },
+  "trackers": {
+    "sleep": "النوم",
+    "feeding": "الرضاعة",
+    "diaper": "الحفاض",
+    "weight": "الوزن",
+    "logSleep": "تسجيل النوم",
+    "logFeeding": "تسجيل الرضاعة",
+    "logDiaper": "تسجيل الحفاض",
+    "logWeight": "تسجيل الوزن",
+    "noEntries": "لا توجد سجلات بعد"
+  },
+  "learn": {
+    "encyclopedia": "موسوعة الصحة",
+    "foodPlan": "خطة 30 يومًا",
+    "day": "اليوم"
+  },
+  "community": {
+    "title": "مجتمع الأمهات",
+    "newPost": "منشور جديد",
+    "writeSomething": "شاركي شيئًا مع المجتمع...",
+    "post": "نشر",
+    "likes": "إعجابات",
+    "replies": "ردود"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "language": "اللغة",
+    "profile": "ملف الطفل",
+    "reminders": "التذكيرات"
+  }
+}
