@@ -1,0 +1,65 @@
+# Codemagic CI/CD config for Little Steps (React Native CLI 0.76.5)
+# Docs: https://docs.codemagic.io/yaml-quick-start/building-a-react-native-app/
+
+workflows:
+  # ---------------------------------------------------------------------------
+  # Android debug APK — FREE to build and install on any Android device.
+  # No signing keystore or developer account required.
+  # Download the APK from the build artifacts and sideload it.
+  # ---------------------------------------------------------------------------
+  android-debug:
+    name: Android Debug (free test build)
+    instance_type: linux_x2
+    max_build_duration: 60
+    environment:
+      node: 20.11.0
+      java: 17
+    cache:
+      cache_paths:
+        - $HOME/.gradle/caches
+        - $HOME/.npm
+    scripts:
+      - name: Install npm dependencies
+        script: npm ci
+      - name: Set Android SDK location
+        script: echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/android/local.properties"
+      - name: Build Android debug APK
+        script: |
+          cd android
+          ./gradlew assembleDebug
+    artifacts:
+      - android/app/build/outputs/**/*.apk
+
+  # ---------------------------------------------------------------------------
+  # iOS build — requires a paid Apple Developer account ($99/yr) for code
+  # signing and TestFlight/device install. Left here for when you're ready.
+  # You'll need to add code signing in Codemagic (App Store Connect integration)
+  # before this can install on a real iPhone.
+  # ---------------------------------------------------------------------------
+  ios-release:
+    name: iOS (needs Apple Developer account)
+    instance_type: mac_mini_m2
+    max_build_duration: 90
+    environment:
+      node: 20.11.0
+      xcode: latest
+      cocoapods: default
+    cache:
+      cache_paths:
+        - $HOME/.npm
+        - ios/Pods
+    scripts:
+      - name: Install npm dependencies
+        script: npm ci
+      - name: Install CocoaPods dependencies
+        script: |
+          cd ios
+          pod install
+      - name: Build iOS (unsigned archive)
+        script: |
+          xcode-project build-ipa \
+            --workspace "ios/LittleSteps.xcworkspace" \
+            --scheme "LittleSteps"
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
