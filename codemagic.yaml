@@ -3,16 +3,20 @@
 
 workflows:
   # ---------------------------------------------------------------------------
-  # Android debug APK — FREE to build and install on any Android device.
-  # No signing keystore or developer account required.
-  # Download the APK from the build artifacts and sideload it.
-  # ---------------------------------------------------------------------------
+  # Android RELEASE APK — FREE to build and install on any Android device.
+  #
+  # Why release (not debug): a debug APK does NOT embed the JS bundle and needs
+  # a Metro dev server, so it shows a red error screen when installed standalone.
+  # The release APK bundles the JS (+ Hermes) and is signed with the committed
+  # debug keystore, so it runs on a phone with no Metro and no $99 account.
+  #
   # NOTE: Codemagic's free 500 min/month are macOS-M2 only — Linux/Windows
-  # builds have no free minutes. So we build the Android APK on a Mac instance.
-  android-debug:
-    name: Android Debug (free test build)
+  # builds have no free minutes, so we build the Android APK on a Mac instance.
+  # ---------------------------------------------------------------------------
+  android-release:
+    name: Android Release APK (free, installable)
     instance_type: mac_mini_m2
-    max_build_duration: 60
+    max_build_duration: 90
     environment:
       node: 20.11.0
       java: 17
@@ -25,11 +29,11 @@ workflows:
         script: npm ci
       - name: Set Android SDK location
         script: echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/android/local.properties"
-      - name: Build Android debug APK
+      - name: Build Android release APK
         script: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug
+          ./gradlew assembleRelease
     artifacts:
       - android/app/build/outputs/**/*.apk
 
