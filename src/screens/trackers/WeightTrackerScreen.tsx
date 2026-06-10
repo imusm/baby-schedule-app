@@ -2,9 +2,16 @@ import React, {useState} from 'react';
 import {FlatList, StyleSheet, Text, TextInput, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 
-import {Screen, Card, PrimaryButton} from '../../components';
+import {
+  Screen,
+  Card,
+  PrimaryButton,
+  EntryEditorModal,
+  WeightChart,
+} from '../../components';
 import {colors, radius, spacing, typography} from '../../theme';
 import {useAppStore, useActiveBaby} from '../../store/useAppStore';
+import {WeightEntry} from '../../types';
 
 export const WeightTrackerScreen: React.FC = () => {
   const {t} = useTranslation();
@@ -13,6 +20,7 @@ export const WeightTrackerScreen: React.FC = () => {
   const addWeight = useAppStore((s) => s.addWeight);
   const [value, setValue] = useState('');
 
+  const [editing, setEditing] = useState<WeightEntry | null>(null);
   const id = activeBaby?.id;
   const babyWeights = weights.filter((e) => e.babyId === id);
 
@@ -55,17 +63,31 @@ export const WeightTrackerScreen: React.FC = () => {
         contentContainerStyle={styles.list}
         data={babyWeights}
         keyExtractor={(item) => item.id}
+        ListHeaderComponent={
+          babyWeights.length > 0 ? (
+            <Card>
+              <Text style={[typography.label, styles.chartTitle]}>Growth</Text>
+              <WeightChart data={babyWeights} />
+            </Card>
+          ) : null
+        }
         ListEmptyComponent={
           <Text style={[typography.bodyMuted, styles.empty]}>
             {t('trackers.noEntries')}
           </Text>
         }
         renderItem={({item}) => (
-          <Card>
+          <Card onPress={() => setEditing(item)}>
             <Text style={typography.h3}>{item.weightKg} kg</Text>
-            <Text style={typography.caption}>{item.date}</Text>
+            <Text style={typography.caption}>{item.date} · tap to edit</Text>
           </Card>
         )}
+      />
+      <EntryEditorModal
+        kind="weight"
+        entry={editing}
+        visible={!!editing}
+        onClose={() => setEditing(null)}
       />
     </Screen>
   );
@@ -89,4 +111,5 @@ const styles = StyleSheet.create({
   addBtn: {width: 100},
   list: {paddingHorizontal: spacing.lg, paddingBottom: spacing.xxxl},
   empty: {textAlign: 'center', marginTop: spacing.xxl},
+  chartTitle: {marginBottom: spacing.sm},
 });

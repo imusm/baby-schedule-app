@@ -2,5 +2,8 @@ export {Screen} from './Screen';
 export {Card} from './Card';
 export {PrimaryButton} from './PrimaryButton';
 export {DatePickerField} from './DatePickerField';
+export {TimePickerField} from './TimePickerField';
 export {BabyForm} from './BabyForm';
 export {BabySwitcherSheet} from './BabySwitcherSheet';
+export {EntryEditorModal} from './EntryEditorModal';
+export {WeightChart} from './WeightChart';

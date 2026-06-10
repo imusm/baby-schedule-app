@@ -30,8 +30,12 @@ interface AppState {
   // Community
   posts: CommunityPost[];
 
+  // Reminder preferences (persisted; notification delivery added separately)
+  reminders: Record<string, boolean>;
+
   // Profile actions
   setLanguage: (lang: string) => void;
+  setReminder: (key: string, enabled: boolean) => void;
   addBaby: (baby: Omit<BabyProfile, 'id'>) => string;
   updateBaby: (baby: BabyProfile) => void;
   removeBaby: (id: string) => void;
@@ -45,6 +49,11 @@ interface AppState {
   removeEntry: (
     kind: 'feeding' | 'sleep' | 'diaper' | 'weight',
     id: string,
+  ) => void;
+  updateEntry: (
+    kind: 'feeding' | 'sleep' | 'diaper' | 'weight',
+    id: string,
+    patch: Record<string, unknown>,
   ) => void;
 
   // Community actions
@@ -64,8 +73,11 @@ export const useAppStore = create<AppState>()(
       diapers: [],
       weights: [],
       posts: SAMPLE_POSTS,
+      reminders: {},
 
       setLanguage: (language) => set({language}),
+      setReminder: (key, enabled) =>
+        set((s) => ({reminders: {...s.reminders, [key]: enabled}})),
 
       addBaby: (baby) => {
         const id = uid();
@@ -123,6 +135,24 @@ export const useAppStore = create<AppState>()(
               return {diapers: s.diapers.filter((e) => e.id !== id)};
             case 'weight':
               return {weights: s.weights.filter((e) => e.id !== id)};
+            default:
+              return {};
+          }
+        }),
+
+      updateEntry: (kind, id, patch) =>
+        set((s) => {
+          const apply = <T extends {id: string}>(arr: T[]): T[] =>
+            arr.map((e) => (e.id === id ? ({...e, ...patch} as T) : e));
+          switch (kind) {
+            case 'feeding':
+              return {feedings: apply(s.feedings)};
+            case 'sleep':
+              return {sleeps: apply(s.sleeps)};
+            case 'diaper':
+              return {diapers: apply(s.diapers)};
+            case 'weight':
+              return {weights: apply(s.weights)};
             default:
               return {};
           }

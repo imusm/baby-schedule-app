@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 
-import {Screen, Card} from '../../components';
+import {Screen, Card, EntryEditorModal} from '../../components';
 import {colors, radius, spacing, typography} from '../../theme';
 import {useAppStore, useActiveBaby} from '../../store/useAppStore';
 import {formatTime, timeAgo} from '../../utils/date';
-import {FeedingType} from '../../types';
+import {FeedingType, FeedingEntry} from '../../types';
 
 const TYPES: {key: FeedingType; label: string}[] = [
   {key: 'breast', label: 'Breast'},
@@ -20,6 +20,7 @@ export const FeedingTrackerScreen: React.FC = () => {
   const activeBaby = useActiveBaby();
   const addFeeding = useAppStore((s) => s.addFeeding);
 
+  const [editing, setEditing] = useState<FeedingEntry | null>(null);
   const id = activeBaby?.id;
   const babyFeedings = feedings.filter((e) => e.babyId === id);
 
@@ -58,15 +59,21 @@ export const FeedingTrackerScreen: React.FC = () => {
           </Text>
         }
         renderItem={({item}) => (
-          <Card>
+          <Card onPress={() => setEditing(item)}>
             <Text style={typography.h3}>
               {item.type[0].toUpperCase() + item.type.slice(1)}
             </Text>
             <Text style={typography.caption}>
-              {formatTime(item.startTime)} · {timeAgo(item.startTime)}
+              {formatTime(item.startTime)} · {timeAgo(item.startTime)} · tap to edit
             </Text>
           </Card>
         )}
+      />
+      <EntryEditorModal
+        kind="feeding"
+        entry={editing}
+        visible={!!editing}
+        onClose={() => setEditing(null)}
       />
     </Screen>
   );
