@@ -1,14 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
-import {Moon, Milk, Baby as DiaperIcon, Scale} from 'lucide-react-native';
+import {
+  Moon,
+  Milk,
+  Baby as DiaperIcon,
+  Scale,
+  ChevronDown,
+} from 'lucide-react-native';
 
-import {Screen, Card} from '../../components';
+import {Screen, Card, BabySwitcherSheet} from '../../components';
 import {colors, radius, spacing, typography} from '../../theme';
-import {useAppStore} from '../../store/useAppStore';
-import {todaysEntries} from '../../utils/date';
+import {useAppStore, useActiveBaby} from '../../store/useAppStore';
+import {todaysEntries, formatAge} from '../../utils/date';
 import {RootStackParamList} from '../../navigation/types';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
@@ -23,22 +29,39 @@ const quickActions = [
 export const HomeScreen: React.FC = () => {
   const navigation = useNavigation<Nav>();
   const {t} = useTranslation();
-  const baby = useAppStore((s) => s.baby);
+  const activeBaby = useActiveBaby();
   const feedings = useAppStore((s) => s.feedings);
   const sleeps = useAppStore((s) => s.sleeps);
   const diapers = useAppStore((s) => s.diapers);
+  const [switcherOpen, setSwitcherOpen] = useState(false);
 
+  const id = activeBaby?.id;
   const stats = [
-    {label: t('trackers.feeding'), value: todaysEntries(feedings).length},
-    {label: t('trackers.sleep'), value: todaysEntries(sleeps).length},
-    {label: t('trackers.diaper'), value: todaysEntries(diapers).length},
+    {label: t('trackers.feeding'), value: todaysEntries(feedings.filter((e) => e.babyId === id)).length},
+    {label: t('trackers.sleep'), value: todaysEntries(sleeps.filter((e) => e.babyId === id)).length},
+    {label: t('trackers.diaper'), value: todaysEntries(diapers.filter((e) => e.babyId === id)).length},
   ];
 
   return (
     <Screen scroll>
-      <Text style={[typography.bodyMuted, styles.greeting]}>
-        {t('home.greeting')}{baby ? `, ${baby.name}'s parent` : ''} 👋
-      </Text>
+      {/* Baby header / switcher */}
+      <TouchableOpacity
+        activeOpacity={0.85}
+        style={styles.babyHeader}
+        onPress={() => setSwitcherOpen(true)}>
+        <View style={styles.babyAvatar}>
+          <Text style={styles.babyAvatarText}>
+            {activeBaby?.name?.charAt(0).toUpperCase() ?? '👶'}
+          </Text>
+        </View>
+        <View style={styles.babyInfo}>
+          <Text style={typography.h3}>{activeBaby?.name ?? 'Baby'}</Text>
+          <Text style={typography.caption}>
+            {activeBaby ? formatAge(activeBaby.birthDate) : ''}
+          </Text>
+        </View>
+        <ChevronDown color={colors.textSecondary} size={20} />
+      </TouchableOpacity>
 
       <Text style={[typography.h3, styles.sectionTitle]}>
         {t('home.todaySummary')}
@@ -74,12 +97,37 @@ export const HomeScreen: React.FC = () => {
           );
         })}
       </View>
+
+      <BabySwitcherSheet
+        visible={switcherOpen}
+        onClose={() => setSwitcherOpen(false)}
+        onAddChild={() => navigation.navigate('AddChild')}
+      />
     </Screen>
   );
 };
 
 const styles = StyleSheet.create({
-  greeting: {marginTop: spacing.md, marginBottom: spacing.lg},
+  babyHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    padding: spacing.md,
+    marginTop: spacing.md,
+    marginBottom: spacing.lg,
+  },
+  babyAvatar: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: colors.primaryLight,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: spacing.md,
+  },
+  babyAvatarText: {fontSize: 20, fontWeight: '700', color: colors.primary},
+  babyInfo: {flex: 1},
   sectionTitle: {marginBottom: spacing.md, marginTop: spacing.sm},
   statsRow: {flexDirection: 'row', justifyContent: 'space-around'},
   stat: {alignItems: 'center'},
@@ -89,11 +137,7 @@ const styles = StyleSheet.create({
     color: colors.primary,
     marginBottom: 2,
   },
-  grid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
+  grid: {flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'},
   action: {
     width: '48%',
     backgroundColor: colors.surface,

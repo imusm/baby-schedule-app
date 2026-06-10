@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -8,11 +8,13 @@ import {
   Globe,
   Bell,
   ChevronRight,
+  Users,
 } from 'lucide-react-native';
 
-import {Screen, Card} from '../../components';
+import {Screen, Card, BabySwitcherSheet} from '../../components';
 import {colors, radius, spacing, typography} from '../../theme';
-import {useAppStore} from '../../store/useAppStore';
+import {useAppStore, useActiveBaby} from '../../store/useAppStore';
+import {formatAge, formatDateLong} from '../../utils/date';
 import {RootStackParamList} from '../../navigation/types';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
@@ -20,33 +22,52 @@ type Nav = NativeStackNavigationProp<RootStackParamList>;
 export const ProfileScreen: React.FC = () => {
   const navigation = useNavigation<Nav>();
   const {t} = useTranslation();
-  const baby = useAppStore((s) => s.baby);
+  const activeBaby = useActiveBaby();
+  const babyCount = useAppStore((s) => s.babies.length);
+  const [switcherOpen, setSwitcherOpen] = useState(false);
 
   const rows = [
-    {icon: Bell, label: t('settings.reminders'), route: 'Reminders' as const},
-    {icon: Globe, label: t('settings.language'), route: 'Language' as const},
-    {icon: SettingsIcon, label: t('settings.title'), route: 'Settings' as const},
+    {
+      icon: Users,
+      label: babyCount > 1 ? `Switch child (${babyCount})` : 'Add child',
+      onPress: () =>
+        babyCount > 1 ? setSwitcherOpen(true) : navigation.navigate('AddChild'),
+    },
+    {icon: Bell, label: t('settings.reminders'), onPress: () => navigation.navigate('Reminders')},
+    {icon: Globe, label: t('settings.language'), onPress: () => navigation.navigate('Language')},
+    {icon: SettingsIcon, label: t('settings.title'), onPress: () => navigation.navigate('Settings')},
   ];
 
   return (
     <Screen scroll>
       <Card style={styles.profileCard}>
         <View style={styles.avatar}>
-          <Text style={styles.avatarText}>{baby?.name?.[0] ?? '👶'}</Text>
+          <Text style={styles.avatarText}>
+            {activeBaby?.name?.charAt(0).toUpperCase() ?? '👶'}
+          </Text>
         </View>
-        <Text style={[typography.h2, styles.name]}>{baby?.name ?? 'Baby'}</Text>
-        {baby?.birthDate ? (
-          <Text style={typography.bodyMuted}>{baby.birthDate}</Text>
+        <Text style={[typography.h2, styles.name]}>
+          {activeBaby?.name ?? 'Baby'}
+        </Text>
+        {activeBaby ? (
+          <Text style={typography.bodyMuted}>
+            {formatAge(activeBaby.birthDate)} · born{' '}
+            {formatDateLong(activeBaby.birthDate)}
+          </Text>
         ) : null}
+        <TouchableOpacity
+          style={styles.switchBtn}
+          onPress={() => setSwitcherOpen(true)}>
+          <Text style={styles.switchBtnText}>
+            {babyCount > 1 ? 'Switch / manage children' : 'Add another child'}
+          </Text>
+        </TouchableOpacity>
       </Card>
 
-      {rows.map((r) => {
+      {rows.map((r, idx) => {
         const Icon = r.icon;
         return (
-          <TouchableOpacity
-            key={r.route}
-            activeOpacity={0.85}
-            onPress={() => navigation.navigate(r.route)}>
+          <TouchableOpacity key={idx} activeOpacity={0.85} onPress={r.onPress}>
             <Card style={styles.row}>
               <Icon color={colors.primary} size={22} />
               <Text style={[typography.body, styles.rowLabel]}>{r.label}</Text>
@@ -55,6 +76,12 @@ export const ProfileScreen: React.FC = () => {
           </TouchableOpacity>
         );
       })}
+
+      <BabySwitcherSheet
+        visible={switcherOpen}
+        onClose={() => setSwitcherOpen(false)}
+        onAddChild={() => navigation.navigate('AddChild')}
+      />
     </Screen>
   );
 };
@@ -72,6 +99,14 @@ const styles = StyleSheet.create({
   },
   avatarText: {fontSize: 34, fontWeight: '700', color: colors.primary},
   name: {marginBottom: 2},
+  switchBtn: {
+    marginTop: spacing.md,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.lg,
+    borderRadius: radius.pill,
+    backgroundColor: colors.primaryLight,
+  },
+  switchBtnText: {...typography.label, color: colors.primaryDark},
   row: {flexDirection: 'row', alignItems: 'center'},
   rowLabel: {flex: 1, marginLeft: spacing.md},
 });

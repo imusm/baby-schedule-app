@@ -4,30 +4,32 @@ import {useTranslation} from 'react-i18next';
 
 import {Screen, Card, PrimaryButton} from '../../components';
 import {colors, spacing, typography} from '../../theme';
-import {useAppStore} from '../../store/useAppStore';
+import {useAppStore, useActiveBaby} from '../../store/useAppStore';
 import {formatTime, timeAgo} from '../../utils/date';
 
 export const SleepTrackerScreen: React.FC = () => {
   const {t} = useTranslation();
   const sleeps = useAppStore((s) => s.sleeps);
-  const baby = useAppStore((s) => s.baby);
+  const activeBaby = useActiveBaby();
   const addSleep = useAppStore((s) => s.addSleep);
   const removeEntry = useAppStore((s) => s.removeEntry);
 
-  const ongoing = sleeps.find((s) => !s.endTime);
+  const id = activeBaby?.id;
+  const babySleeps = sleeps.filter((e) => e.babyId === id);
+  const ongoing = babySleeps.find((s) => !s.endTime);
 
   const toggle = () => {
     if (ongoing) {
       // end the ongoing nap by replacing it
       removeEntry('sleep', ongoing.id);
       addSleep({
-        babyId: baby?.id ?? 'unknown',
+        babyId: id ?? 'unknown',
         startTime: ongoing.startTime,
         endTime: new Date().toISOString(),
       });
     } else {
       addSleep({
-        babyId: baby?.id ?? 'unknown',
+        babyId: id ?? 'unknown',
         startTime: new Date().toISOString(),
       });
     }
@@ -44,7 +46,7 @@ export const SleepTrackerScreen: React.FC = () => {
       </View>
       <FlatList
         contentContainerStyle={styles.list}
-        data={sleeps}
+        data={babySleeps}
         keyExtractor={(item) => item.id}
         ListEmptyComponent={
           <Text style={[typography.bodyMuted, styles.empty]}>

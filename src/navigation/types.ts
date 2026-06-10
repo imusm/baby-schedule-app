@@ -26,6 +26,7 @@ export type RootStackParamList = {
   PostDetail: {id: string};
   CreatePost: undefined;
   // Profile / settings
+  AddChild: undefined;
   Settings: undefined;
   Language: undefined;
   Reminders: undefined;

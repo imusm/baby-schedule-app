@@ -4,11 +4,11 @@ import {useTranslation} from 'react-i18next';
 
 import {Screen, Card, PrimaryButton} from '../../components';
 import {spacing, typography} from '../../theme';
-import {useAppStore} from '../../store/useAppStore';
+import {useActiveBaby} from '../../store/useAppStore';
 
 export const SettingsScreen: React.FC = () => {
   const {t} = useTranslation();
-  const baby = useAppStore((s) => s.baby);
+  const baby = useActiveBaby();
 
   return (
     <Screen scroll>

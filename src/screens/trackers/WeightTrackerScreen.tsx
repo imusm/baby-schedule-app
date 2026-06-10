@@ -4,14 +4,17 @@ import {useTranslation} from 'react-i18next';
 
 import {Screen, Card, PrimaryButton} from '../../components';
 import {colors, radius, spacing, typography} from '../../theme';
-import {useAppStore} from '../../store/useAppStore';
+import {useAppStore, useActiveBaby} from '../../store/useAppStore';
 
 export const WeightTrackerScreen: React.FC = () => {
   const {t} = useTranslation();
   const weights = useAppStore((s) => s.weights);
-  const baby = useAppStore((s) => s.baby);
+  const activeBaby = useActiveBaby();
   const addWeight = useAppStore((s) => s.addWeight);
   const [value, setValue] = useState('');
+
+  const id = activeBaby?.id;
+  const babyWeights = weights.filter((e) => e.babyId === id);
 
   const log = () => {
     const kg = parseFloat(value.replace(',', '.'));
@@ -19,7 +22,7 @@ export const WeightTrackerScreen: React.FC = () => {
       return;
     }
     addWeight({
-      babyId: baby?.id ?? 'unknown',
+      babyId: id ?? 'unknown',
       date: new Date().toISOString().slice(0, 10),
       weightKg: kg,
     });
@@ -50,7 +53,7 @@ export const WeightTrackerScreen: React.FC = () => {
       </View>
       <FlatList
         contentContainerStyle={styles.list}
-        data={weights}
+        data={babyWeights}
         keyExtractor={(item) => item.id}
         ListEmptyComponent={
           <Text style={[typography.bodyMuted, styles.empty]}>

@@ -4,7 +4,7 @@ import {useTranslation} from 'react-i18next';
 
 import {Screen, Card} from '../../components';
 import {colors, radius, spacing, typography} from '../../theme';
-import {useAppStore} from '../../store/useAppStore';
+import {useAppStore, useActiveBaby} from '../../store/useAppStore';
 import {formatTime, timeAgo} from '../../utils/date';
 import {DiaperType} from '../../types';
 
@@ -17,12 +17,15 @@ const TYPES: {key: DiaperType; label: string}[] = [
 export const DiaperTrackerScreen: React.FC = () => {
   const {t} = useTranslation();
   const diapers = useAppStore((s) => s.diapers);
-  const baby = useAppStore((s) => s.baby);
+  const activeBaby = useActiveBaby();
   const addDiaper = useAppStore((s) => s.addDiaper);
+
+  const id = activeBaby?.id;
+  const babyDiapers = diapers.filter((e) => e.babyId === id);
 
   const log = (type: DiaperType) =>
     addDiaper({
-      babyId: baby?.id ?? 'unknown',
+      babyId: id ?? 'unknown',
       type,
       time: new Date().toISOString(),
     });
@@ -47,7 +50,7 @@ export const DiaperTrackerScreen: React.FC = () => {
       </View>
       <FlatList
         contentContainerStyle={styles.list}
-        data={diapers}
+        data={babyDiapers}
         keyExtractor={(item) => item.id}
         ListEmptyComponent={
           <Text style={[typography.bodyMuted, styles.empty]}>

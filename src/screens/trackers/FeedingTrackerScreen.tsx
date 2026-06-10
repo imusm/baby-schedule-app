@@ -4,7 +4,7 @@ import {useTranslation} from 'react-i18next';
 
 import {Screen, Card} from '../../components';
 import {colors, radius, spacing, typography} from '../../theme';
-import {useAppStore} from '../../store/useAppStore';
+import {useAppStore, useActiveBaby} from '../../store/useAppStore';
 import {formatTime, timeAgo} from '../../utils/date';
 import {FeedingType} from '../../types';
 
@@ -17,12 +17,15 @@ const TYPES: {key: FeedingType; label: string}[] = [
 export const FeedingTrackerScreen: React.FC = () => {
   const {t} = useTranslation();
   const feedings = useAppStore((s) => s.feedings);
-  const baby = useAppStore((s) => s.baby);
+  const activeBaby = useActiveBaby();
   const addFeeding = useAppStore((s) => s.addFeeding);
+
+  const id = activeBaby?.id;
+  const babyFeedings = feedings.filter((e) => e.babyId === id);
 
   const log = (type: FeedingType) =>
     addFeeding({
-      babyId: baby?.id ?? 'unknown',
+      babyId: id ?? 'unknown',
       type,
       startTime: new Date().toISOString(),
     });
@@ -47,7 +50,7 @@ export const FeedingTrackerScreen: React.FC = () => {
       </View>
       <FlatList
         contentContainerStyle={styles.list}
-        data={feedings}
+        data={babyFeedings}
         keyExtractor={(item) => item.id}
         ListEmptyComponent={
           <Text style={[typography.bodyMuted, styles.empty]}>

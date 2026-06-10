@@ -19,6 +19,7 @@ import {FoodPlanScreen} from '../screens/learn/FoodPlanScreen';
 import {FoodDayScreen} from '../screens/learn/FoodDayScreen';
 import {PostDetailScreen} from '../screens/community/PostDetailScreen';
 import {CreatePostScreen} from '../screens/community/CreatePostScreen';
+import {AddChildScreen} from '../screens/profile/AddChildScreen';
 import {SettingsScreen} from '../screens/profile/SettingsScreen';
 import {LanguageScreen} from '../screens/profile/LanguageScreen';
 import {RemindersScreen} from '../screens/profile/RemindersScreen';
@@ -95,6 +96,11 @@ export const RootNavigator: React.FC = () => {
               name="CreatePost"
               component={CreatePostScreen}
               options={{title: t('community.newPost'), presentation: 'modal'}}
+            />
+            <Stack.Screen
+              name="AddChild"
+              component={AddChildScreen}
+              options={{title: 'Add child'}}
             />
             <Stack.Screen
               name="Settings"
